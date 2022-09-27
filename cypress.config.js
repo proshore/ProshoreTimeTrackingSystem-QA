@@ -5,11 +5,5 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-  },
-
-  // env: {
-  //   proshoreLoginEmail: "test@test.com",
-  //   proshoreLoginPassword: "test123"
-  // }
-  
+  }
 });

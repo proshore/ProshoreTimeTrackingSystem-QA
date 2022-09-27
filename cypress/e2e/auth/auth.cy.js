@@ -34,7 +34,7 @@ describe('Verify the login functionality of Proshore Login Page', function(){
     })
 
 
-    it.only('Login with invalid email address and valid password', function(){
+    it('Login with invalid email address and valid password', function(){
         const loginEmail = getRandomEmail()
         login_PO.typeEmail(loginEmail)
         login_PO.typePassword(Cypress.env('proshoreLoginPassword'))
