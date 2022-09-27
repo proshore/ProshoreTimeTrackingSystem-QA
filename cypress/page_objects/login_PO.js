@@ -24,9 +24,11 @@ class login_PO {
     this.elements.loginBtn().click({ force: true });
   }
 
-  // errorMessage(){
-  //     this.elements.validationError()
-  // }
+  verifyPasswordLengthErrorMessage() {
+    this.elements
+      .validationError()
+      .should("have.text", "Password length must be at least 6 characters.");
+  }
   verifyInvalidCredentialAlertMessage() {
     this.elements
       .loginError()

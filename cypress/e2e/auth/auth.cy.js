@@ -1,6 +1,5 @@
-const { getRandomEmail,getRandomString } = require("../../../utilites/helper");
+const { getRandomEmail, getRandomString } = require("../../../utilites/helper");
 const loginPagePO = require("../../page_objects/login_PO");
-
 
 describe("authentication module", function () {
   beforeEach(function () {
@@ -22,24 +21,24 @@ describe("authentication module", function () {
   });
 
   it("Verify the validation msg when login is attempted with less than 6 letter password", function () {
-    const randomGenerateEmail = getRandomEmail()
+    const randomGenerateEmail = getRandomEmail();
     const randomGenerateName = getRandomString(3);
     loginPagePO.typeEmail(randomGenerateEmail);
     loginPagePO.typePassword(randomGenerateName);
     loginPagePO.clickLogin();
-    // loginPagePO.elements.loginError()
-    // .should("have.text","Password length must be at least 6 characters." );
+  loginPagePO.verifyPasswordLengthErrorMessage();
+
+   
   });
   it("Verify the login process with invalidLogin credentials ", function () {
     const randomGenerateEmail = getRandomEmail();
-    const randomGenerateName = getRandomString();
+    const randomGenerateName = getRandomString(7);
     // cy.log(randomGenerateName)
     // cy.pause()
     loginPagePO.typeEmail(randomGenerateEmail);
     loginPagePO.typePassword(randomGenerateName);
     loginPagePO.clickLogin();
-    loginPagePO.verifyInvalidCredentialAlertMessage()
-      
+    loginPagePO.verifyInvalidCredentialAlertMessage();
   });
   it("should visible the password", function () {
     cy.login();
@@ -49,14 +48,13 @@ describe("authentication module", function () {
   it("It should not be submit with empty email address", function () {
     const randomGenerateName = getRandomString(6);
     loginPagePO.typePassword(randomGenerateName);
-    loginPagePO.clickLogin()
+    loginPagePO.clickLogin();
     loginPagePO.elements.loginBtn().should("be.disabled");
   });
   it(" should not be submit with empty password", function () {
-    //perform
     const randomGenerateEmail = getRandomEmail();
     loginPagePO.typeEmail(randomGenerateEmail);
-    loginPagePO.clickLogin()
+    loginPagePO.clickLogin();
     loginPagePO.elements.loginBtn().should("be.disabled");
   });
   it("It should not be submit with incorrect password", function () {
@@ -65,10 +63,7 @@ describe("authentication module", function () {
     loginPagePO.typeEmail(randomGenerateEmail);
     loginPagePO.typePassword(randomGenerateName);
     loginPagePO.clickLogin();
-    // cy.get(".text-danger").should(
-    //   "have.text",
-    //   "Password length must be at least 6 characters."
-    // );
+    loginPagePO.verifyPasswordLengthErrorMessage();
   });
 
   it("It should not be submit with incorrect email address", function () {
@@ -77,14 +72,10 @@ describe("authentication module", function () {
     loginPagePO.typeEmail(randomGenerateEmail);
     loginPagePO.typePassword(randomGenerateName);
     loginPagePO.clickLogin();
-    // cy.get(".alert-message").should(
-    //   "have.text",
-    //   "Please enter valid email or password."
-    // );
+    loginPagePO.verifyInvalidCredentialAlertMessage();
   });
 
   it("clicked on forget password redirected to forget password page", function () {
-    //perform
     cy.get(".forgot-password").click();
     cy.url().should(
       "eq",
@@ -93,7 +84,6 @@ describe("authentication module", function () {
   });
 
   it("URL of reset password  should be https://frontendbootcamp.proshore.eu/accounts/password-forgot", function () {
-    //perform
     cy.get(".forgot-password").click();
     cy.url().should(
       "eq",
@@ -101,7 +91,6 @@ describe("authentication module", function () {
     );
   });
   it(" should  be submit with empty emailaddress", function () {
-    //perform
     cy.get(".forgot-password").click();
     //  cy.location('pathname').should('include','/accounts/password-forget')
     cy.get(".form-control");
@@ -112,18 +101,16 @@ describe("authentication module", function () {
     });
 
     it(" should  be submit with incorrect email address in reset password page", function () {
-      //perform
       cy.get(".forgot-password").click();
       // cy.location('pathname').should('include','/accounts/password-forget')
       cy.get(".form-control.mt-1").type("mahimabh93@gmail.com{enter}");
-      //perdict
+
       cy.get(".alert-message").should(
         "have.text",
         "User with given email address not found"
       );
     });
     it(" should  be submit with correct email address in reset password page", function () {
-      //perform
       cy.get(".forgot-password").click();
       // cy.location('pathname').should('include','/accounts/password-forget')
       cy.get(".form-control").type("test@test.com{enter}");
@@ -138,7 +125,6 @@ describe("authentication module", function () {
       );
 
       cy.location("origin").then((URL) => {
-        //perform
         expect(URL).to.eq("https://frontendbootcamp.proshore.eu");
         cy.visit(URL + "/tracker");
         cy.get(".form-heading-title").should("have.text", "Log in");
