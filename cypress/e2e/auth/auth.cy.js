@@ -37,14 +37,14 @@ describe('Verify the login functionality of Proshore Login Page', function(){
     it('Login with invalid email address and valid password', function(){
         const loginEmail = getRandomEmail()
         login_PO.typeEmail(loginEmail)
-        login_PO.typePassword(Cypress.env('proshoreLoginPassword'))
+        login_PO.typePassword(Cypress.env('APP_PASSWORD'))
         login_PO.clickLoginButton()
         login_PO.elements.loginError().should('have.text', 'Please enter valid email or password.')
     })
 
 
     it('Login with valid email address and invalid password', function() {
-        login_PO.typeEmail(Cypress.env('proshoreLoginEmail'))
+        login_PO.typeEmail(Cypress.env('APP_EMAIL'))
         const loginPassword = getRandomString(10)
         login_PO.typePassword(loginPassword)
         login_PO.clickLoginButton()

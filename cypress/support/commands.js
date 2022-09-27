@@ -30,8 +30,8 @@ Cypress.Commands.add('login', () => {
     cy.contains('Log in')
     cy.url().should('eq', 'https://frontendbootcamp.proshore.eu/accounts/login')
     
-    cy.get('[data-cy="emailInputField"]').eq(0).type(Cypress.env('proshoreLoginEmail'))
-    cy.get('[data-cy="emailInputField"]').eq(1).type(Cypress.env('proshoreLoginPassword'))
+    cy.get('[data-cy="emailInputField"]').eq(0).type(Cypress.env('APP_EMAIL'))
+    cy.get('[data-cy="emailInputField"]').eq(1).type(Cypress.env('APP_PASSWORD'))
     cy.get("[data-cy='loginButton']").click()
     cy.url().should('eq','https://frontendbootcamp.proshore.eu/tracker')
   })
