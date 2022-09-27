@@ -34,7 +34,7 @@ describe('Verify the login functionality of Proshore Login Page', function(){
     })
 
 
-    it('Login with invalid email address and valid password', function(){
+    it.only('Login with invalid email address and valid password', function(){
         const loginEmail = getRandomEmail()
         login_PO.typeEmail(loginEmail)
         login_PO.typePassword(Cypress.env('proshoreLoginPassword'))
@@ -82,9 +82,6 @@ describe('Verify the login functionality of Proshore Login Page', function(){
 
 
     it('Login with valid email address and valid password', function(){
-      //   login_PO.typeEmail(proshoreEmail)
-      //   login_PO.typePassword(proshorePassword)
-      //   login_PO.clickLoginButton()
         cy.login()
         adminPortalPO.elements.title().should('have.text', 'Time Tracker')
     })

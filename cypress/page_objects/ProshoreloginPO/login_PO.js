@@ -4,9 +4,6 @@ class login_PO {
         passwordInput : () => cy.get("[data-cy='emailInputField']").eq(1),
         loginbtn : () => cy.get("[data-cy='loginButton']"),
         loginError : () => cy.get('.alert-message'),
-        // emailError : () => cy.get('.text-danger').eq(0),
-        // passwordError : () => cy.get('.text-danger').eq(1),
-        // passwordErr : () => cy.get('.text-danger'),
         validationError : (index) => cy.get('.text-danger').eq(index)
     }
 
