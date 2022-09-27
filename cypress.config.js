@@ -7,9 +7,9 @@ module.exports = defineConfig({
     },
   },
 
-  env: {
-    proshoreLoginEmail: "test@test.com",
-    proshoreLoginPassword: "test123"
-  }
+  // env: {
+  //   proshoreLoginEmail: "test@test.com",
+  //   proshoreLoginPassword: "test123"
+  // }
   
 });
