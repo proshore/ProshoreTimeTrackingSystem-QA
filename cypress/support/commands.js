@@ -26,26 +26,9 @@
 Cypress.Commands.add('login', () => {
     cy.clearCookies()
     cy.clearLocalStorage()
-    cy.get("#email").type("test@test.com");
-    cy.get("#password").type("test123").type("{enter}")
-    // cy.get('form > .d-grid').click()
-    // cy.get('[data-cy="loginButton"]').click()
-
+    cy.get("#email").type(Cypress.env("APP_EMAIL"))
+    cy.get("#password").type(Cypress.env("APP_PASSWORD"))
+    .type("{enter}")
+    cy.url().should("eq","https://frontendbootcamp.proshore.eu/tracker")
   })
-  Cypress.Commands.add('invalidLogin', (emailaddress, password) => {
-    cy.clearCookies()
-    cy.clearLocalStorage()
-    cy.get("#email").type(emailaddress);
-    cy.get("#password").type(password).type("{enter}")
-    // cy.get('form > .d-grid').click()
-    // cy.get("[type='submit']").click()
-
-  })
-  Cypress.Commands.add('project', (name, clientname) => {
-    cy.clearCookies()
-    cy.clearLocalStorage()
-    cy.get('[data-cy="projectsSidebarButton"]').contains("Projects").click();
-    cy.get('[data-cy="addProjectButton"]').click();
-    
-   
-  })
+ 

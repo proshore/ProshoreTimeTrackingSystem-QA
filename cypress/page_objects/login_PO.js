@@ -20,7 +20,7 @@ class login_PO {
   typePassword(password) {
     this.elements.passwordInput().type(password);
   }
-  clickLogin() {
+  clickOnLoginButton() {
     this.elements.loginBtn().click({ force: true });
   }
 
