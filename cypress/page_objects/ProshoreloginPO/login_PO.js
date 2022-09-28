@@ -8,9 +8,9 @@ class login_PO {
     }
 
     visitLoginPage(){
-        cy.visit('https://frontendbootcamp.proshore.eu/accounts/login')
+        cy.visit('/')
         cy.contains('Log in')
-        cy.url().should('eq', 'https://frontendbootcamp.proshore.eu/accounts/login')
+        cy.url().should('eq', 'https://frontendbootcamp.proshore.eu/accounts/login/')
     }
 
     typeEmail(email){

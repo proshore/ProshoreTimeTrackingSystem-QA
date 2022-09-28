@@ -26,9 +26,9 @@
 
 Cypress.Commands.add('login', () => {
     //Visit Login Page
-    cy.visit('https://frontendbootcamp.proshore.eu/accounts/login')
+    cy.visit('/')
     cy.contains('Log in')
-    cy.url().should('eq', 'https://frontendbootcamp.proshore.eu/accounts/login')
+    cy.url().should('eq', 'https://frontendbootcamp.proshore.eu/accounts/login/')
     
     cy.get('[data-cy="emailInputField"]').eq(0).type(Cypress.env('APP_EMAIL'))
     cy.get('[data-cy="emailInputField"]').eq(1).type(Cypress.env('APP_PASSWORD'))
