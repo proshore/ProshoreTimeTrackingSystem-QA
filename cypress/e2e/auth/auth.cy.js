@@ -87,7 +87,6 @@ describe('Verify the login functionality of Proshore Login Page', function(){
     })
 
     it('Access admin portal via URL', function(){
-        cy.url().should('eq', 'https://frontendbootcamp.proshore.eu/accounts/login')
         cy.location('origin').then(URL => {
         expect(URL).to.eq('https://frontendbootcamp.proshore.eu')
         cy.visit(URL + '/tracker')
