@@ -26,7 +26,7 @@
 
 Cypress.Commands.add('login', () => {
     //Visit Login Page
-    cy.visit('/')
+    cy.visit('/accounts/login/')
     cy.contains('Log in')
     cy.url().should('eq', 'https://frontendbootcamp.proshore.eu/accounts/login/')
     

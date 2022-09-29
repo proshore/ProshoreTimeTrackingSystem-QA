@@ -8,7 +8,7 @@ class login_PO {
     }
 
     visitLoginPage(){
-        cy.visit('/')
+        cy.visit('/accounts/login/')
         cy.contains('Log in')
         cy.url().should('eq', 'https://frontendbootcamp.proshore.eu/accounts/login/')
     }
