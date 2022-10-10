@@ -10,11 +10,26 @@ describe('Verifying Add Project functionality of projects module', function(){
         addProjectPO.goToProjectModule()
     })
 
-    it('Create new project in projects module with non-empty fields', function() {
-        const randomGeneratedName = getRandomString()
-        addProjectPO.typeProjectName(randomGeneratedName) 
+    it('Verifying the action of project registration with empty fields', function(){
+        addProjectPO.clickAddProjectButton()
+        addProjectPO.verifyEmptyValidation('project')
+    })
+
+    it('Create new project client name but empty Project Name.', function(){
         addProjectPO.selectClientName('Jane Doe')
         addProjectPO.clickAddProjectButton()
+        addProjectPO.verifyEmptyValidation('project')
+    })
+
+    it('Create new project with Project name but empty Client name.', function(){
+        const randomGeneratedName = getRandomString(10)
+        addProjectPO.typeProjectName(randomGeneratedName)
+        addProjectPO.clickAddProjectButton()
+        addProjectPO.verifyEmptyValidation('client')
+    })
+
+    it('Billable button functionality on create new project', function(){
+        addProjectPO.checkbillableKeyFunctionality()
     })
 
 })
