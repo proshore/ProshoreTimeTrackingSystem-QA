@@ -1,6 +1,6 @@
 function getRandomString (length = 5) {
 
-    const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let result = '';
     for ( let i = 0; i < length; i++ ) {
         result += characters.charAt(Math.floor(Math.random() * characters.length));
@@ -9,7 +9,7 @@ function getRandomString (length = 5) {
 }
 
 function getRandomEmail (length =5) {
-    const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let result = '';
     for ( let i = 0; i < length; i++ ) {
         result += characters.charAt(Math.floor(Math.random() * characters.length));

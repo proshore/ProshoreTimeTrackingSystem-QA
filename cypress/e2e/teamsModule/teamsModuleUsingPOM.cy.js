@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import addNewMemberFunctionPO from "../../page_objects/teamsModulePO/teamsModule_PO"
-const { getRandomString, getRandomEmail } = require("../../../utilities/helpers")
+import { getRandomString , getRandomEmail} from "../../../utilites/helper";
 
 describe('Verifying Add New Member functionality of teams module', function() {
 
@@ -62,7 +62,7 @@ describe('Verifying Add New Member functionality of teams module', function() {
         cy.get('tbody').eq(0).find('tr').last().find('td.gray-color').contains(randomGeneratedEmail)
     })
 
-    it.only('Revoke functionality of newly invited member', function(){
+    it('Revoke functionality of newly invited member', function(){
         //Add New Member
         addNewMemberFunctionPO.clickAddNewMember()   
         //Create new project
@@ -72,6 +72,7 @@ describe('Verifying Add New Member functionality of teams module', function() {
         addNewMemberFunctionPO.typeEmaiAddress(randomGeneratedEmail)
         addNewMemberFunctionPO.typeRoles('MEMBER')
         addNewMemberFunctionPO.clickSendInvite()
+        //cy.get('.modal-header button').click()
         // cy.intercept('GET', '/api/invite/invited-users').as('loadInvitedMembers')
         // cy.wait('@loadInvitedMembers')
     
