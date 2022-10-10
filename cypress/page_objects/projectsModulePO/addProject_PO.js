@@ -3,7 +3,7 @@ class addProjectPO{
         projectName : () => cy.get('[data-cy="addProjectname"]'),
         clientName : () => cy.get('#client-id'),
         billableKey : () => cy.get('[data-cy="toggleBillable"]'),
-        addProject : () => cy.get('data-cy="newProjectCreateButton"]'),
+        addProject : () => cy.get('[data-cy="newProjectCreateButton"]'),
         validationError : () => cy.get('.alert-message'),
         searchField : () => cy.get('.topnav input')
     }
@@ -39,7 +39,7 @@ class addProjectPO{
     }
 
     clickAddProjectButton(){
-        this.elements.addProject().contains(' ADD PROJECT ').click()
+        this.elements.addProject().contains('ADD PROJECT').click()
     }
 }
 
