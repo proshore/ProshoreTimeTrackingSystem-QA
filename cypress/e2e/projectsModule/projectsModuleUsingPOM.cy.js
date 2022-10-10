@@ -27,6 +27,8 @@ describe('Verifying Add Project functionality of projects module', function(){
         addProjectPO.typeProjectName(randomGeneratedName) 
         addProjectPO.selectClientName('Jane Doe')
         addProjectPO.clickAddProjectButton()
+
+        //TODOS make an assertion
     })
 
 })
