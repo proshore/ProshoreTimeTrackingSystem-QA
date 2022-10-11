@@ -1,5 +1,5 @@
 const { getRandomString } = require("../../../utilites/helper");
-const projectModule_PO = require("../../page_objects/projectModule_PO");
+const projectModule_PO = require("../../page_objects/ProjectModule/projectModule_PO");
 
 describe("Search in project module", function () {
   beforeEach(function () {
@@ -16,7 +16,6 @@ describe("Search in project module", function () {
   });
   it("Create Project with empty Project name only", function () {
     projectModule_PO.clientInput();
-    // .should("have.value", 1);
     projectModule_PO.createProject();
   });
   it("click billable button", function () {
@@ -25,8 +24,11 @@ describe("Search in project module", function () {
       .invoke("attr", "title")
       .should("eq", "Billable");
   });
-  it("should logout ", function(){
-    cy.get('.h-6 > path').click()
-    cy.url().should('eq', 'https://frontendbootcamp.proshore.eu/accounts/login')
-  })
+  it("should logout ", function () {
+    cy.get(".h-6 > path").click();
+    cy.url().should(
+      "eq",
+      "https://frontendbootcamp.proshore.eu/accounts/login"
+    );
+  });
 });
