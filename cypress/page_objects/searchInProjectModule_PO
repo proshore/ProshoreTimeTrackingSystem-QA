@@ -1,0 +1,7 @@
+class searchInProjectModule_Po{
+  visitProjectModulePage(){
+    cy.get('[data-cy="projectsSidebarButton"]').contains("Projects").click();
+    cy.url().should('eq', 'https://frontendbootcamp.proshore.eu/projects')
+  }
+}
+module.exports = new searchInProjectModule_Po();
