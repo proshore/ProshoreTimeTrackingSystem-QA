@@ -4,8 +4,6 @@ import login_PO from "../../page_objects/ProshoreloginPO/login_PO";
 import adminPortalPO from "../../page_objects/ProshoreloginPO/adminPortal_PO";
 import { getRandomString , getRandomEmail} from "../../../utilites/helper";
 
-
-
 describe('Verify the login functionality of Proshore Login Page', function(){
 
     //PREPARE

@@ -37,6 +37,15 @@ Cypress.Commands.add('login', () => {
     cy.url().should('eq','https://frontendbootcamp.proshore.eu/tracker')
   })
 
+  Cypress.Commands.add('qaasaLogin', ()=> {
+    cy.visit('https://ashishakya.qaasaa.nl/app');
+    cy.get('.col-auto h1').contains('Welkom terug')
+    cy.get('#email').type(Cypress.env('qaasaUsername'))
+    cy.get('#password').type(Cypress.env('qaasaPassword'))
+    cy.get('[type="submit"]').contains('Login').click()
+    cy.url().should('eq', 'https://ashishakya.qaasaa.nl/app/home#/')
+  })
+
 Cypress.Commands.add('waitForComponentToMount', () => {
   cy.intercept('GET', '/api/*').as('loadModule')
   cy.wait('@loadModule')
