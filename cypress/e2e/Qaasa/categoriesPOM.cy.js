@@ -51,16 +51,14 @@ describe('CRUD test specs for ashishakya.qaasaa.nl', function(){
         categoriesPO.elements.tableRows().first().find('td').eq(1).should('contain', updatedCategoryName)
     })
 
-    it.only('Testing search action', function(){
+    it('Testing search action', function(){
         const categoryName = getRandomString(8)
         categoriesPO.typeCategoryName(categoryName)
         categoriesPO.clickSaveButton()
         categoriesPO.elements.tableRows().first().find('td').eq(1).should('contain', categoryName)
+        cy.intercept(`/api/supplier-categories?*`).as('tableItems')
         cy.get('.col > .form-control').type(categoryName).type('{enter}')
-        cy.get('.col > .form-control').type(categoryName).should('have.value', categoryName)
-        //cy.wait(1000)
-        // cy.intercept('GET',`/api/supplier-categories?search=${categoryName}`).as('tableItems')
-        // cy.wait('@tableItems')
+        cy.wait('@tableItems')
         categoriesPO.elements.tableRows().each(($tableRowItem) => {  
             expect($tableRowItem).to.contain(categoryName);
         })
