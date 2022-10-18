@@ -4,6 +4,7 @@ import categoriesPO from "../../page_objects/qaasa_PO/categoriesPO"
 import { getRandomString} from "../../../utilites/helper";
 
 describe('CRUD test specs for ashishakya.qaasaa.nl', function(){
+
     beforeEach(function() {
         cy.qaasaLogin();
         categoriesPO.clickNavigationButton()
@@ -35,5 +36,33 @@ describe('CRUD test specs for ashishakya.qaasaa.nl', function(){
         categoriesPO.elements.validationError().invoke('text').should('eq', 'name is al bezet.')
     })
 
+    it('Verifying edit property of the category name', function(){
+        const categoryName = getRandomString(8)
+        const addedCategoryName = getRandomString()
+        const updatedCategoryName = categoryName + addedCategoryName
+        categoriesPO.typeCategoryName(categoryName)
+        categoriesPO.clickSaveButton()
+        categoriesPO.elements.tableRows().first().find('td').eq(1).should('contain', categoryName)
+        cy.get('.text-right > .dropdown').first().click()
+        cy.get('.text-right > .dropdown > .dropdown-menu >').eq(1).click()
+        categoriesPO.elements.categoryName().should('have.value', categoryName)
+        categoriesPO.typeCategoryName(addedCategoryName)
+        categoriesPO.clickSaveButton()
+        categoriesPO.elements.tableRows().first().find('td').eq(1).should('contain', updatedCategoryName)
+    })
 
+    it.only('Testing search action', function(){
+        const categoryName = getRandomString(8)
+        categoriesPO.typeCategoryName(categoryName)
+        categoriesPO.clickSaveButton()
+        categoriesPO.elements.tableRows().first().find('td').eq(1).should('contain', categoryName)
+        cy.get('.col > .form-control').type(categoryName).type('{enter}')
+        cy.get('.col > .form-control').type(categoryName).should('have.value', categoryName)
+        //cy.wait(1000)
+        // cy.intercept('GET',`/api/supplier-categories?search=${categoryName}`).as('tableItems')
+        // cy.wait('@tableItems')
+        categoriesPO.elements.tableRows().each(($tableRowItem) => {  
+            expect($tableRowItem).to.contain(categoryName);
+        })
+    })
 })

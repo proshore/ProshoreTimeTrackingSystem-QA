@@ -33,6 +33,7 @@ class categoriesPO{
     clickSaveButton(){
         this.elements.saveButton().click()
     }
+
 }
 
 module.exports = new categoriesPO();
