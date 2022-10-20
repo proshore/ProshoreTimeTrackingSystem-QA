@@ -22,14 +22,17 @@ describe('CRUD test specs for ashishakya.qaasaa.nl', function(){
         const categoryName = getRandomString(8)
         categoriesPO.typeCategoryName(categoryName)
         categoriesPO.clickSaveButton()
-        categoriesPO.elements.tableRows().first().should('contain', categoryName)
+        categoriesPO.elements.tableRows().first().find('td').eq(1).should('contain', categoryName)
+        categoriesPO.elements.tableRows().first().find('td').eq(2).then((numberOfSuppliers => {
+            cy.wrap(numberOfSuppliers.text().trim()).should('eq', '0')
+        }))
     })
 
     it('Verifying uniqueness of the catergory', function(){
         const categoryName = getRandomString(8)
         categoriesPO.typeCategoryName(categoryName)
         categoriesPO.clickSaveButton()
-        categoriesPO.elements.tableRows().first().should('contain', categoryName)
+        categoriesPO.elements.tableRows().first().find('td').eq(1).should('contain', categoryName)
         categoriesPO.goToNewCategory()
         categoriesPO.typeCategoryName(categoryName)
         categoriesPO.clickSaveButton()
@@ -62,5 +65,19 @@ describe('CRUD test specs for ashishakya.qaasaa.nl', function(){
         categoriesPO.elements.tableRows().each(($tableRowItem) => {  
             expect($tableRowItem).to.contain(categoryName);
         })
+    })
+
+    it('Test Delete Functionality', function(){
+        const categoryName = getRandomString(8)
+        categoriesPO.typeCategoryName(categoryName)
+        categoriesPO.clickSaveButton()
+        categoriesPO.elements.tableRows().first().find('td').eq(1).should('contain', categoryName)
+        cy.get('.text-right > .dropdown').first().click()
+        cy.get('.text-right > .dropdown > .dropdown-menu >').eq(2).click()
+        cy.get('.swal2-container .swal2-actions button').first().contains('Verwijderen').click()
+        cy.intercept(`/api/supplier-categories?*`).as('tableItems')
+        cy.get('.col > .form-control').type(categoryName).type('{enter}')
+        cy.wait('@tableItems')
+        categoriesPO.elements.tableRows().should('have.length', 0)
     })
 })
