@@ -18,7 +18,7 @@ describe('CRUD test specs for ashishakya.qaasaa.nl', function(){
         categoriesPO.elements.validationError().invoke('text').should('eq', 'Het name veld is verplicht.')
     })
 
-    context.only('Creating dependent test: Creating, Searching, Editing and Deleting Categories', function() {
+    context('Creating dependent test: Creating, Searching, Editing and Deleting Categories', function() {
 
         let categoryName;
 
@@ -62,7 +62,7 @@ describe('CRUD test specs for ashishakya.qaasaa.nl', function(){
             })
         })
 
-        specify.only('Test Delete Functionality', function(){
+        it('Test Delete Functionality', function(){
             cy.get('.text-right > .dropdown').first().click()
             cy.get('.text-right > .dropdown > .dropdown-menu >').eq(2).click()
             cy.get('.swal2-container .swal2-actions button').first().contains('Verwijderen').click()
