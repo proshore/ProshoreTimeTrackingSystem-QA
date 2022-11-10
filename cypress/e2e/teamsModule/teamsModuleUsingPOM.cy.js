@@ -59,7 +59,7 @@ describe('Verifying Add New Member functionality of teams module', function() {
         cy.wait('@loadInvitedMembers')
 
         //Check if the invited members are included in the list
-        cy.get('tbody').eq(0).find('tr').last().find('td.gray-color').contains(randomGeneratedEmail)
+        cy.get('tbody').eq(0).find('tr').first().find('td.gray-color').contains(randomGeneratedEmail)
     })
 
     it('Revoke functionality of newly invited member', function(){
@@ -72,13 +72,14 @@ describe('Verifying Add New Member functionality of teams module', function() {
         addNewMemberFunctionPO.typeEmaiAddress(randomGeneratedEmail)
         addNewMemberFunctionPO.typeRoles('MEMBER')
         addNewMemberFunctionPO.clickSendInvite()
-        //cy.get('.modal-header button').click()
-        // cy.intercept('GET', '/api/invite/invited-users').as('loadInvitedMembers')
-        // cy.wait('@loadInvitedMembers')
-    
+        cy.intercept('GET', '/api/**').as('loadInvitedMembers')
+        cy.wait('@loadInvitedMembers')
+        cy.get('tbody').eq(0).find('tr').first().find('td.gray-color').contains(randomGeneratedEmail)
         //Use of revoke functionality
-        cy.get('tbody').eq(0).find('tr').last().find('td>#dropdownMenuButton1').click().siblings('ul').contains('Revoke').click()
-        cy.get('tbody').eq(0).find('tr').last().should('not.have.string', randomGeneratedEmail)
+        cy.get('tbody').eq(0).find('tr').first().find('td>#dropdownMenuButton1').click().siblings('ul').contains('Revoke').click()
+        cy.intercept('GET', '/api/**').as('loadInvitedMembers')
+        cy.wait('@loadInvitedMembers')
+        cy.get('tbody').eq(0).find('tr').first().should('not.contain', randomGeneratedEmail)
     })
 
     it('Reinvite functionality of newly invited member', function(){
@@ -94,7 +95,7 @@ describe('Verifying Add New Member functionality of teams module', function() {
         addNewMemberFunctionPO.clickSendInvite()
     
         //Use of reinvite functionality
-        cy.get('tbody').eq(0).find('tr').last().find('td>.btn').contains('Reinvite').click()
+        cy.get('tbody').eq(0).find('tr').first().find('td>.btn').contains('Reinvite').click()
         cy.get('.alert-success').contains('User re-invited successfully')
     })
 
@@ -107,14 +108,16 @@ describe('Verifying Add New Member functionality of teams module', function() {
     })
 
     it('Use of registered email address for inviting new member.', function(){
-        //Add New Member
-        addNewMemberFunctionPO.clickAddNewMember()
-
+        
+        cy.intercept('GET', '/api/**').as('loadInvitedMembers')
+        cy.wait('@loadInvitedMembers')
         //Get any one of the registered member from AllMember list
-        cy.get('tbody').eq(1).find('tr').eq(1).find('td').eq(0).invoke('text').then(name => {
+        cy.get('tbody').eq(1).find('tr').eq(0).find('td').eq(0).invoke('text').then(name => {
+            addNewMemberFunctionPO.clickAddNewMember()
             addNewMemberFunctionPO.typeFullName(name)
         })
-        cy.get('tbody').eq(1).find('tr').eq(1).find('td').eq(1).invoke('text').then(email => {
+        cy.get('tbody').eq(1).find('tr').eq(0).find('td').eq(1).invoke('text').then(email => {
+            addNewMemberFunctionPO.clickAddNewMember()
             addNewMemberFunctionPO.typeEmaiAddress(email)
         })
         addNewMemberFunctionPO.typeRoles('MEMBER')
@@ -130,7 +133,7 @@ describe('Verifying Add New Member functionality of teams module', function() {
         })
     })
 
-    it('Delete functionality of a registered member.', function(){
+    it.skip('Delete functionality of a registered member.', function(){
         cy.get('.table').eq(1).find('tbody>tr').last().find('td>.btn').eq(1).click().siblings('ul').contains('Delete').click();
         cy.get('.modal-footer').first().find('[data-cy="deleteRegisteredUserSuccessfully"]').contains('Delete').click()
         cy.get('.table').eq(1).find('tbody>tr').last().should('not.exist')

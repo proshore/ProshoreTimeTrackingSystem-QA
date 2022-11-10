@@ -32,6 +32,8 @@ Cypress.Commands.add('login', () => {
     
     cy.get('[data-cy="emailInputField"]').eq(0).type(Cypress.env('APP_EMAIL'))
     cy.get('[data-cy="emailInputField"]').eq(1).type(Cypress.env('APP_PASSWORD'))
-    cy.get("[data-cy='loginButton']").click()
+    cy.get("[data-cy='loginButton']").contains('Log in').click()
+    cy.intercept('POST', '/api/user/login').as('mountComponents')
+    cy.wait('@mountComponents')
     cy.url().should('eq','https://frontendbootcamp.proshore.eu/tracker')
   })
